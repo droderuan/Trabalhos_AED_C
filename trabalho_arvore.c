@@ -6,6 +6,7 @@
 typedef struct no {
 	int ID, idade;
 	char sexo[1];
+	float salario;
 	struct no *filho_esq;
 	struct no *filho_dir;
 } no;
@@ -61,6 +62,11 @@ int main(){
 	return 0;
 }
 
+/*
+	Essa função retorna f=0 caso o nó seja nulo
+						f=1 caso tenha achado o nó
+						f=2 caso tenha achado o nó pai e o elemento será um filho
+*/
 no* buscarElemento(no *NO, int x, int *f){
 	if(NO == NULL){             //verifica se o nó raiz (nó de onde a busca irá partir) é null ou se contem o próprio elemento
 		*f = 0;
@@ -103,6 +109,8 @@ no* inserirElemento(no *NO){  //nao usar o nome da variavel com a mesma da struc
 			printf("\nSexo invalido\nDigite novamente: ");
 			scanf("%s", &newNo->sexo);
 		}
+		printf("\nSalario: ");
+		scanf("%f", &newNo->salario);
 		newNo->ID = ID;
 		newNo->filho_dir = NULL;
 		newNo->filho_esq = NULL;
@@ -144,10 +152,6 @@ no* deletarNo(no *NO, int x){
 			NO = NO->filho_esq;
 			free(pt);
 			return NO;
-		}else if (NO->filho_esq->filho_esq == NO->filho_dir->filho_dir){
-			NO->ID = NO->filho_esq->ID;
-			free(NO->filho_esq);
-			NO->filho_esq = NULL;
 		}else{
 			pt = NO;
 			pt1 = NO->filho_esq;
@@ -180,6 +184,7 @@ void preOrdem(no *arvore){
 	printf("\nID: %d\n", arvore->ID);
 	printf("\nIdade: %d\n", arvore->idade);
 	printf("\nSexo: %s\n", arvore->sexo);
+	printf("\nSalario: R$%.2f", arvore->salario); //o .2 no %.2f delimita a exibição para 2 casas decimais
 	if(arvore->filho_esq != NULL){
 		preOrdem(arvore->filho_esq);
 	}
