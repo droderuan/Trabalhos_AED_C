@@ -14,7 +14,8 @@ typedef struct no {
 no* buscarElemento(no *NO, int x, int *f);
 no* inserirElemento(no *NO);
 no* deletarNo(no *NO, int x);
-
+float mediaSalarial(no *arvore, float salario,int cont,int contNumM,int contNumF);
+void abaixoMediaSalaria(no *arvore,float media,int cont,int contNum,int contSal1,int contSal2,int contSal3);
 void preOrdem(no *arvore);
 
 int main(){
@@ -23,9 +24,11 @@ int main(){
 	while(op != 0){
 		system("cls");
 		printf("Escolha a operacao");
-		printf("\n1- Imprimir pre ordem\n");
-		printf("\n2- Inserir\n");
-		printf("\n3- Deletar\n\n");
+		printf("\n1- Imprimir pre ordem");
+		printf("\n2- Inserir");
+		printf("\n3- Deletar");
+		printf("\n4- Estatistica");
+		printf("\n Escolha um item:");
 		scanf("%d", &op);
 		switch(op){
 			case 1:
@@ -55,6 +58,14 @@ int main(){
 	            else{
 	                printf("\nPessoa nao encontrada");
 	        	}
+				break;
+			case 4:
+				if(raiz != NULL){
+					//mediaSalarial(raiz,0,0,0,0);
+					abaixoMediaSalaria(raiz,mediaSalarial(raiz,0,0,0,0),0,0,0,0,0);
+				}else{
+					printf("\nArvore vazia!");
+				}
 				break;
 		}
 		getch();
@@ -192,4 +203,74 @@ void preOrdem(no *arvore){
 		preOrdem(arvore->filho_dir);
 	}
 }
+
+
+float mediaSalarial(no * pt,float salario,int cont, int contNumM,int contNumF){
+	cont++;
+	salario = salario + pt->salario;
+	
+	if(strcmp(pt->sexo, "M") == 0){
+		contNumM = contNumM + 1;
+	}else{
+		contNumF = contNumF + 1;	
+	}
+	
+	
+	if (pt->filho_esq != NULL){
+		mediaSalarial(pt->filho_esq,salario,cont,contNumM,contNumF);
+	} 
+   	if (pt->filho_dir != NULL){
+   		mediaSalarial(pt->filho_dir,salario,cont,contNumM,contNumF);
+   	}
+   
+   if(pt->filho_dir == NULL && pt->filho_esq == NULL ){
+   		salario = salario/cont;
+		printf("\nA média salarial dos trabalhadores R$%.2f",salario);
+		printf("\nHomens: %i",contNumM);
+		printf("\nMulheres: %i",contNumF);
+   		return salario;
+   }
+   
+}
+
+void abaixoMediaSalaria(no *pt,float media,int cont,int contNum,int contSal1,int contSal2,int contSal3){
+	cont++;
+	
+	if(pt ->salario <= 2000){
+		contSal1++;
+	}
+	
+	if(pt ->salario > 2000 && pt->salario <= 4000){
+		contSal2++;
+	}
+	
+	if(pt ->salario > 4000){
+		contSal3++;
+	}
+	
+	if(pt->salario < media){
+		contNum = contNum + 1;
+	}
+	
+	if (pt->filho_esq != NULL){
+		abaixoMediaSalaria(pt->filho_esq,media,cont,contNum,contSal1,contSal2,contSal3);
+	} 
+   	if (pt->filho_dir != NULL){
+   		abaixoMediaSalaria(pt->filho_dir,media,cont,contNum,contSal1,contSal2,contSal3);
+   	}
+   
+   if(pt->filho_dir == NULL && pt->filho_esq == NULL ){
+   		contNum = (contNum * 100)/cont;
+   		contSal1 =(contSal1 * 100)/cont;
+		contSal2 =(contSal2 * 100)/cont;
+		contSal3 =(contSal3 * 100)/cont ;  
+	printf("\nAbaixo da Media Salarial: %i%s\n",contNum,"%");
+	printf("Ganham menos que R$2000,00: %i%s\n",contSal1,"%");
+	printf("Ganham entre R$2000,00 e R$4000,00: %i%s\n",contSal2,"%");
+	printf("Ganham mais que R$4000,00: %i%s\n",contSal3,"%");
+   	}
+}	
+
+
+
 
