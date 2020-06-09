@@ -74,25 +74,25 @@ int main(){
 }
 
 /*
-	Essa função retorna f=0 caso o nó seja nulo
-						f=1 caso tenha achado o nó
-						f=2 caso tenha achado o nó pai e o elemento será um filho
+	Essa funï¿½ï¿½o retorna f=0 caso o nï¿½ seja nulo
+						f=1 caso tenha achado o nï¿½
+						f=2 caso tenha achado o nï¿½ pai e o elemento serï¿½ um filho
 */
 no* buscarElemento(no *NO, int x, int *f){
-	if(NO == NULL){             //verifica se o nó raiz (nó de onde a busca irá partir) é null ou se contem o próprio elemento
+	if(NO == NULL){             //verifica se o nï¿½ raiz (nï¿½ de onde a busca irï¿½ partir) ï¿½ null ou se contem o prï¿½prio elemento
 		*f = 0;
 		return NULL;
 	} else if(NO->ID == x){
 		*f = 1;
 		return NO;
-	} else if (x < NO->ID){			//verifica se a busca vai para a esquerda e se o filho da esquerda é null, se não entra numa outra chamada recursiva
+	} else if (x < NO->ID){			//verifica se a busca vai para a esquerda e se o filho da esquerda ï¿½ null, se nï¿½o entra numa outra chamada recursiva
 		if (NO->filho_esq == NULL){
 			*f = 2;
 			return NO;
 		} else{
 			buscarElemento(NO->filho_esq, x, f);
 		}
-	}else if( NO->filho_dir == NULL){			//verifica se a busca vai para a direita e se o filho da direita é null, se não entra numa outra chamada recursiva
+	}else if( NO->filho_dir == NULL){			//verifica se a busca vai para a direita e se o filho da direita ï¿½ null, se nï¿½o entra numa outra chamada recursiva
 			*f = 2;
 			return NO;
 		} else{
@@ -100,7 +100,7 @@ no* buscarElemento(no *NO, int x, int *f){
 		}
 }
 
-no* inserirElemento(no *NO){  //nao usar o nome da variavel com a mesma da struct, pois irá haver conflito na declaração de outras structs com o nome da variavel. Ex: no* no
+no* inserirElemento(no *NO){  //nao usar o nome da variavel com a mesma da struct, pois irï¿½ haver conflito na declaraï¿½ï¿½o de outras structs com o nome da variavel. Ex: no* no
 	no *newNo, *aux;
 	int f, ID;
 	printf("\n\nDigite a ID: ");
@@ -146,18 +146,18 @@ no* deletarNo(no *NO, int x){
 	if (NO == NULL){
 		return NULL;
 	} else if( NO->ID == x){
-		if (NO->filho_dir == NO->filho_esq){   // se for uma folha parte pro abraço
+		if (NO->filho_dir == NO->filho_esq){   // se for uma folha parte pro abraï¿½o
 			free(NO);
 			NO = NULL;
 			return NULL;
 
-		} else if(NO->filho_esq == NULL){   // se tiver só filho a direita, o no recebe o seu filho e é deletado
+		} else if(NO->filho_esq == NULL){   // se tiver sï¿½ filho a direita, o no recebe o seu filho e ï¿½ deletado
 			printf("\nEsq == null");
 			pt = NO;
 			NO = NO->filho_dir;
 			free(pt);
 			return NO;
-		} else if (NO->filho_dir == NULL){   // se tiver só filho a esquerda, o no recebe o seu filho e é deletado
+		} else if (NO->filho_dir == NULL){   // se tiver sï¿½ filho a esquerda, o no recebe o seu filho e ï¿½ deletado
 			printf("\nDir == null");
 			pt = NO;
 			NO = NO->filho_esq;
@@ -195,7 +195,7 @@ void preOrdem(no *arvore){
 	printf("\nID: %d\n", arvore->ID);
 	printf("\nIdade: %d\n", arvore->idade);
 	printf("\nSexo: %s\n", arvore->sexo);
-	printf("\nSalario: R$%.2f", arvore->salario); //o .2 no %.2f delimita a exibição para 2 casas decimais
+	printf("\nSalario: R$%.2f", arvore->salario); //o .2 no %.2f delimita a exibiï¿½ï¿½o para 2 casas decimais
 	if(arvore->filho_esq != NULL){
 		preOrdem(arvore->filho_esq);
 	}
@@ -225,7 +225,7 @@ float mediaSalarial(no * pt,float salario,int cont, int contNumM,int contNumF){
    
    if(pt->filho_dir == NULL && pt->filho_esq == NULL ){
    		salario = salario/cont;
-		printf("\nA média salarial dos trabalhadores R$%.2f",salario);
+		printf("\nA mï¿½dia salarial dos trabalhadores R$%.2f",salario);
 		printf("\nHomens: %i",contNumM);
 		printf("\nMulheres: %i",contNumF);
    		return salario;
@@ -270,7 +270,3 @@ void abaixoMediaSalaria(no *pt,float media,int cont,int contNum,int contSal1,int
 	printf("Ganham mais que R$4000,00: %i%s\n",contSal3,"%");
    	}
 }	
-
-
-
-
